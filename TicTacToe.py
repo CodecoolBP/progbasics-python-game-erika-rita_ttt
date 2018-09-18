@@ -1,10 +1,11 @@
-def generate_board(board_size):
+def generate_board():
+    board_size = 3
     ttt_board = [["  " for x in range(board_size)] for y in range(board_size)]
     # print(ttt_board)
     return ttt_board
 
 
-def print_board(board_size, ttt_board):
+def print_board(ttt_board):
     print("\n     A    B    C")
     print(" ", "–" * 16)
     # for i in range(board_size):
@@ -17,16 +18,27 @@ def print_board(board_size, ttt_board):
     return
 
 
-def player1_steps():
-    #coordinate = list(input("Please enter coordinate: "))
-    pass
+def player1_steps(board):
+    coordinate = list(input("Please enter coordinate: "))  # TODO: check if coordinates are available
+    row_index = int(coordinate[1]) - 1
+    column_dict = {"A": 0, "B": 1, "C": 2, "a": 0, "b": 1, "c": 2}
+    column_index = column_dict[coordinate[0]]
+    board[row_index][column_index] = "X"
+    print_board(board)
+    return
 
 
-def player2_steps():
-    pass
+def player2_steps(board):
+    coordinate = list(input("Please enter coordinate: "))  # TODO: check if coordinates are available
+    row_index = int(coordinate[1]) - 1
+    column_dict = {"A": 0, "B": 1, "C": 2, "a": 0, "b": 1, "c": 2}
+    column_index = column_dict[coordinate[0]]
+    board[row_index][column_index] = "0"
+    print_board(board)
+    return
 
 
-def win_condition():
+def win_condition(board):
     pass
 
 
@@ -35,18 +47,19 @@ def game_end():
 
 
 def main():
-    board_size = 3
-    board = generate_board(board_size)
-    print_board(board_size, board)
+    board = generate_board()
+    print_board(board)
     player = 1
     while True:
         if player == 1:
-            player1_steps()
-            win_condition()
+            print("PLAYER 1")
+            player1_steps(board)
+            win_condition(board)
             player = 2
         if player == 2:
-            player2_steps()
-            win_condition()
+            print("PLAYER 2")
+            player2_steps(board)
+            win_condition(board)
             player = 1
         game_end()
     pass
