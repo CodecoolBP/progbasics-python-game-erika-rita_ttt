@@ -6,7 +6,7 @@ def generate_board():
 
 
 def print_board(ttt_board):
-    print("\n     A    B    C")
+    print("     A    B    C")
     print(" ", "–" * 16)
     # for i in range(board_size):
     print("1 |  " + ttt_board[0][0] + "|  " + ttt_board[0][1] + "|  " + ttt_board[0][2] + "|")
@@ -18,24 +18,27 @@ def print_board(ttt_board):
     return
 
 
-def player1_steps(board):
-    coordinate = list(input("Please enter coordinate: "))  # TODO: check if coordinates are available
+def player_steps(board, player):
+    coordinate = list(input("Please enter coordinate: "))
+    available_row_index = ["1", "2", "3"]
+    available_column_index = ["a", "A", "b", "B", "c", "C"]
+    # checking player input:
+    while len(coordinate) != 2 or str(coordinate[1]) not in available_row_index or coordinate[0] not in available_column_index:
+        print("Please enter a valid coordinate! ")
+        coordinate = input()
     row_index = int(coordinate[1]) - 1
     column_dict = {"A": 0, "B": 1, "C": 2, "a": 0, "b": 1, "c": 2}
     column_index = column_dict[coordinate[0]]
-    board[row_index][column_index] = "X"
-    print_board(board)
-    return
-
-
-def player2_steps(board):
-    coordinate = list(input("Please enter coordinate: "))  # TODO: check if coordinates are available
-    row_index = int(coordinate[1]) - 1
-    column_dict = {"A": 0, "B": 1, "C": 2, "a": 0, "b": 1, "c": 2}
-    column_index = column_dict[coordinate[0]]
-    board[row_index][column_index] = "0"
-    print_board(board)
-    return
+    # checking if coordinate is available (empty)
+    if board[row_index][column_index] == "  ":
+        if player == "player1":
+            board[row_index][column_index] = "X "
+        if player == "player2":
+            board[row_index][column_index] = "0 "
+    else:
+        print("It's not empty. Please enter another coordinate!")
+        player_steps(board, player)
+    return coordinate
 
 
 def win_condition(board):
@@ -43,24 +46,30 @@ def win_condition(board):
 
 
 def game_end():
-    player1_steps
+    pass
 
 
 def main():
     board = generate_board()
-    print_board(board)
-    player = 1
+    # print_board(board)
+    player = "player1"
     while True:
-        if player == 1:
+        if player == "player1":
+            print("\n" + "=" * 18)
             print("PLAYER 1")
-            player1_steps(board)
+            print("=" * 18)
+            print_board(board)
+            player_steps(board, "player1")            
             win_condition(board)
-            player = 2
-        if player == 2:
+            player = "player2"
+        if player == "player2":
+            print("\n" + "=" * 18)
             print("PLAYER 2")
-            player2_steps(board)
+            print("=" * 18)
+            print_board(board)
+            player_steps(board, "player2")
             win_condition(board)
-            player = 1
+            player = "player1"
         game_end()
     pass
 
