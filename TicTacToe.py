@@ -41,12 +41,47 @@ def player_steps(board, player):
     return coordinate
 
 
-def win_condition(board):
-    pass
+def game_end(board):
+    # Player 1 win condition
+    for i in range(3):
+        if board[i][0] == "X " and board[i][1] == "X " and board[i][2] == "X ":
+            print("Player 1 won!")
+            exit()
+        if board[0][i] == "X " and board[1][i] == "X " and board[2][i] == "X ":
+            print("Player 1 won!")
+            exit()
+    if board[0][0] == "X " and board[1][1] == "X " and board[2][2] == "X ":
+        print("Player 1 won!")
+        exit()
+    if board[0][2] == "X " and board[1][1] == "X " and board[2][0] == "X ":
+        print("Player 1 won!")
+        exit()
 
+    # Player 2 win condition
+    for i in range(3):
+        if board[i][0] == "0 " and board[i][1] == "0 " and board[i][2] == "0 ":
+            print("Player 2 won!")
+            exit()
+        if board[0][i] == "0 " and board[1][i] == "0 " and board[2][i] == "0 ":
+            print("Player 2 won!")
+            exit()
+    if board[0][0] == "0 " and board[1][1] == "0 " and board[2][2] == "0 ":
+        print("Player 2 won!")
+        exit()
+    if board[0][2] == "0 " and board[1][1] == "0 " and board[2][0] == "0 ":
+        print("Player 2 won!")
+        exit()
 
-def game_end():
-    pass
+    # Draw
+    checkboard = 0
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] != "  ":
+                checkboard += 1
+    if checkboard == 9:
+        print("Draw")
+        exit()
+    return
 
 
 def main():
@@ -59,8 +94,8 @@ def main():
             print("PLAYER 1")
             print("=" * 18)
             print_board(board)
-            player_steps(board, "player1")            
-            win_condition(board)
+            player_steps(board, "player1")
+            game_end(board)
             player = "player2"
         if player == "player2":
             print("\n" + "=" * 18)
@@ -68,10 +103,8 @@ def main():
             print("=" * 18)
             print_board(board)
             player_steps(board, "player2")
-            win_condition(board)
+            game_end(board)
             player = "player1"
-        game_end()
-    pass
 
 
 if __name__ == '__main__':
