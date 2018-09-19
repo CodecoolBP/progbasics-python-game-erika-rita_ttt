@@ -1,14 +1,12 @@
 def generate_board():
     board_size = 3
     ttt_board = [["  " for x in range(board_size)] for y in range(board_size)]
-    # print(ttt_board)
     return ttt_board
 
 
 def print_board(ttt_board):
     print("     A    B    C")
     print(" ", "–" * 16)
-    # for i in range(board_size):
     print("1 |  " + ttt_board[0][0] + "|  " + ttt_board[0][1] + "|  " + ttt_board[0][2] + "|")
     print(" ", "–" * 16)
     print("2 |  " + ttt_board[1][0] + "|  " + ttt_board[1][1] + "|  " + ttt_board[1][2] + "|")
@@ -44,31 +42,22 @@ def player_steps(board, player):
 def game_end(board):
     # Player 1 win condition
     for i in range(3):
-        if board[i][0] == "X " and board[i][1] == "X " and board[i][2] == "X ":
+        if (board[i][0] == "X " and board[i][1] == "X " and board[i][2] == "X ") or \
+           (board[0][i] == "X " and board[1][i] == "X " and board[2][i] == "X "):
             print("Player 1 won!")
             exit()
-        if board[0][i] == "X " and board[1][i] == "X " and board[2][i] == "X ":
-            print("Player 1 won!")
-            exit()
-    if board[0][0] == "X " and board[1][1] == "X " and board[2][2] == "X ":
+    if (board[0][0] == "X " and board[1][1] == "X " and board[2][2] == "X ") or \
+       (board[0][2] == "X " and board[1][1] == "X " and board[2][0] == "X "):
         print("Player 1 won!")
         exit()
-    if board[0][2] == "X " and board[1][1] == "X " and board[2][0] == "X ":
-        print("Player 1 won!")
-        exit()
-
     # Player 2 win condition
     for i in range(3):
-        if board[i][0] == "0 " and board[i][1] == "0 " and board[i][2] == "0 ":
+        if (board[i][0] == "0 " and board[i][1] == "0 " and board[i][2] == "0 ") or \
+           (board[0][i] == "0 " and board[1][i] == "0 " and board[2][i] == "0 "):
             print("Player 2 won!")
             exit()
-        if board[0][i] == "0 " and board[1][i] == "0 " and board[2][i] == "0 ":
-            print("Player 2 won!")
-            exit()
-    if board[0][0] == "0 " and board[1][1] == "0 " and board[2][2] == "0 ":
-        print("Player 2 won!")
-        exit()
-    if board[0][2] == "0 " and board[1][1] == "0 " and board[2][0] == "0 ":
+    if (board[0][0] == "0 " and board[1][1] == "0 " and board[2][2] == "0 ") or \
+       (board[0][2] == "0 " and board[1][1] == "0 " and board[2][0] == "0 "):
         print("Player 2 won!")
         exit()
 
