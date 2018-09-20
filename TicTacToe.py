@@ -1,3 +1,6 @@
+import os
+
+
 def generate_board():
     board_size = 3
     ttt_board = [["  " for x in range(board_size)] for y in range(board_size)]
@@ -5,21 +8,19 @@ def generate_board():
 
 
 def print_board(ttt_board, player):
+    row_number = 1
     print("\n" + "=" * 18)
     print(player)
     print("=" * 18)
     print("     A    B    C")
     print(" ", "–" * 16)
-    print("1 |  " + ttt_board[0][0] + "|  " + ttt_board[0][1] + "|  " + ttt_board[0][2] + "|")
-    print(" ", "–" * 16)
-    print("2 |  " + ttt_board[1][0] + "|  " + ttt_board[1][1] + "|  " + ttt_board[1][2] + "|")
-    print(" ", "–" * 16)
-    print("3 |  " + ttt_board[2][0] + "|  " + ttt_board[2][1] + "|  " + ttt_board[2][2] + "|")
-    print(" ", "–" * 16)
+    for i in range(3):
+        print(row_number + i, "|  " + ttt_board[i][0] + "|  " + ttt_board[i][1] + "|  " + ttt_board[i][2] + "|")
+        print(" ", "–" * 16)
     return
 
 
-def player_steps(board, player):
+def player_steps(board, player, sign):
     while True:
         coordinate = list(input("Please enter coordinate (e.g. a1): ").upper())
         row_index_list = ["1", "2", "3"]
@@ -30,10 +31,7 @@ def player_steps(board, player):
             column_index = column_index_list.index(coordinate[0])
             # checks if cell is empty:
             if board[row_index][column_index] == "  ":
-                if player == "PLAYER 1":
-                    board[row_index][column_index] = "X "
-                else:
-                    board[row_index][column_index] = "O "
+                board[row_index][column_index] = sign
                 break
             else:
                 print("It's not empty. Please enter another coordinate!")
@@ -50,12 +48,13 @@ def game_end(board, player, sign):
            (board[0][i] == sign and board[1][i] == sign and board[2][i] == sign) or \
            (board[0][0] == sign and board[1][1] == sign and board[2][2] == sign) or \
            (board[0][2] == sign and board[1][1] == sign and board[2][0] == sign):
+            os.system("clear")
             print_board(board, player)
             if sign == "X ":
-                print("Player 1 won!")
+                print(player, "won!")
                 exit()
             if sign == "O ":
-                print("Player 2 won!")
+                print(player, "won!")
                 exit()
 
     # Draw
@@ -65,6 +64,7 @@ def game_end(board, player, sign):
             if board[i][j] != "  ":
                 checkboard += 1
     if checkboard == 9:
+        os.system("clear")
         print_board(board, player)
         print("Draw")
         exit()
@@ -72,19 +72,22 @@ def game_end(board, player, sign):
 
 
 def main():
+    player1 = input("Enter your name: ")
+    player2 = input("Enter your name: ")
     board = generate_board()
-    player = "PLAYER 1"
+    player = player1
     sign = "X "
     while True:
+        os.system("clear")
         print_board(board, player)
-        player_steps(board, player)
+        player_steps(board, player, sign)
         game_end(board, player, sign)
-        if player == "PLAYER 1":
-            player = "PLAYER 2"
+        if player == player1:
+            player = player2
             sign = "O "
             continue
-        if player == "PLAYER 2":
-            player = "PLAYER 1"
+        if player == player2:
+            player = player1
             sign = "X "
             continue
 
