@@ -82,18 +82,16 @@ def main():
     board = generate_board()
     player = "PLAYER 1"
     while True:
+        print_board(board, player)
+        player_steps(board, player)
+        game_end(board, player)
         if player == "PLAYER 1":
-            print_board(board, player)
-            player_steps(board, "PLAYER 1")
-            game_end(board, player)
             player = "PLAYER 2"
+            continue
         if player == "PLAYER 2":
-            print_board(board, player)
-            player_steps(board, "PLAYER 2")
-            game_end(board, player)
             player = "PLAYER 1"
+            continue
 
 
 if __name__ == '__main__':
     main()
-
