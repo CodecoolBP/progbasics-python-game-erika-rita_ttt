@@ -19,34 +19,30 @@ def print_board(ttt_board):
     return
 
 
-def is_cell_empty(board, row_index, column_index, player):
-    # checking if coordinate is available (empty)
-    if board[row_index][column_index] == "  ":
-        return True
-    else:
-        print("It's not empty. Please enter another coordinate!")
-        player_steps(board, player)
-        return False
-    
-
-
 def player_steps(board, player):
-    coordinate = list(input("Please enter coordinate: "))
-    available_row_index = ["1", "2", "3"]
-    available_column_index = ["a", "A", "b", "B", "c", "C"]
-    # checking player input:
-    while len(coordinate) != 2 or str(coordinate[1]) not in available_row_index or coordinate[0] not in available_column_index:
-        print("Please enter a valid coordinate! ")
-        coordinate = input()
-    row_index = int(coordinate[1]) - 1
-    column_dict = {"A": 0, "B": 1, "C": 2, "a": 0, "b": 1, "c": 2}
-    column_index = column_dict[coordinate[0]]
-    if is_cell_empty(board, row_index, column_index, player) is True:
-        if player == "player1":
-            board[row_index][column_index] = "X "
-        if player == "player2":
-            board[row_index][column_index] = "0 "
-    return
+    while True:
+        coordinate = list(input("Please enter coordinate (e.g. a1): ").upper())
+        row_index_list = ["1", "2", "3"]
+        column_index_list = ["A", "B", "C"]
+        if len(coordinate) == 2:
+            if coordinate[0] in column_index_list and str(coordinate[1]) in row_index_list:
+                row_index = row_index_list.index(coordinate[1])
+                column_index = column_index_list.index(coordinate[0])
+                if board[row_index][column_index] == "  ":
+                    if player == "player1":
+                        board[row_index][column_index] = "X "
+                    else:
+                        board[row_index][column_index] = "O "
+                    break
+                else:
+                    print("It's not empty. Please enter another coordinate!")
+                    continue
+            else:
+                print("Please enter a valid coordinate! ")
+                continue   
+        else:
+            print("Please enter a valid coordinate! ")
+            continue
 
 
 def game_end(board):
@@ -60,10 +56,10 @@ def game_end(board):
             exit()
     # Player 2 win condition
     for i in range(3):
-        if (board[i][0] == "0 " and board[i][1] == "0 " and board[i][2] == "0 ") or \
-           (board[0][i] == "0 " and board[1][i] == "0 " and board[2][i] == "0 ") or \
-           (board[0][0] == "0 " and board[1][1] == "0 " and board[2][2] == "0 ") or \
-           (board[0][2] == "0 " and board[1][1] == "0 " and board[2][0] == "0 "):
+        if (board[i][0] == "O " and board[i][1] == "O " and board[i][2] == "O ") or \
+           (board[0][i] == "O " and board[1][i] == "O " and board[2][i] == "O ") or \
+           (board[0][0] == "O " and board[1][1] == "O " and board[2][2] == "O ") or \
+           (board[0][2] == "O " and board[1][1] == "O " and board[2][0] == "O "):
             print("Player 2 won!")
             exit()
 
@@ -98,3 +94,37 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+"""
+def player_steps(board, player):
+    available_row_index = ["1", "2", "3"]
+    available_column_index = ["A", "B", "C"]
+    column_dict = {"A": 0, "B": 1, "C": 2}
+    while True:
+        coordinate = list(input("Please enter coordinate: ").upper())
+        if len(coordinate) == 2:
+            if str(coordinate[1]) in available_row_index and coordinate[0] in available_column_index:
+                row_index = int(coordinate[1] - 1)
+                column_index = column_dict[coordinate[0]]
+                if board[row_index][column_index] == "  ":
+                    if player == "player1":
+                        board[row_index][column_index] = "X "
+                    if player == "player2":
+                        board[row_index][column_index] = "0 "
+                    break
+                else:
+                    print("It's not empty. Please enter another coordinate!")
+                    continue
+        else:
+            print("Please enter a valid coordinate! ")
+            continue     
+    """
+
+"""
+    # checking player input:
+    while len(coordinate) != 2 or str(coordinate[1]) not in available_row_index or coordinate[0] not in available_column_index:
+        print("Please enter a valid coordinate! ")
+        coordinate = input()
+    """   
