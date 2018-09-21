@@ -32,7 +32,7 @@ def player_steps(board, player, sign):
             # checks if cell is empty:
             if board[row_index][column_index] == "  ":
                 board[row_index][column_index] = sign
-                break
+                return board
             else:
                 print("It's not empty. Please enter another coordinate!")
                 continue
